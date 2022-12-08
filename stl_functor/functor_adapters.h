@@ -38,6 +38,7 @@ inline bind1st_test<operation> bind1st_test_function(const operation& op, const 
 }
 
 
+//配接后的依然是仿函数
 
 
 

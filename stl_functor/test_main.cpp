@@ -1,6 +1,9 @@
 #include "functor.h"
 #include "functor_adapters.h"
 #include <iostream>
+#include "function_functor.h"
+#include <vector>
+
 using namespace std;
 
 int main()
@@ -27,6 +30,14 @@ int main()
 	cout << "\n";
 	cout << bind1st_test<less_test<int>>(less_test<int>(),12)(15) << endl;
 	cout << bind1st_test_function(less_test<int>(), 12)(15) << endl;
+
+
+	vector<int> test = { 10,13,16,17,18,1,14 };
+	search_test(test.begin(), test.end(),
+		bind1st_test_function(less_test<int>(), 15));
+	vector<int> test1 = { 2,4,6,8 };
+	auto res = accumlate_test(test1.begin(), test1.end(), plus_test<int>());
+	cout << res << endl;
 
 	return 0;
 }
