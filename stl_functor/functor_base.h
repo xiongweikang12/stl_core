@@ -18,6 +18,7 @@ struct binary_funtion_test
 };
 
 
+
 //对于 functor的适配器接口
 
 

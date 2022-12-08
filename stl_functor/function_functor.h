@@ -23,18 +23,18 @@ void search_test(iterator_test begin, iterator_test end, functor_test test)
 
 
 
-template<typename iterator_test ,typename functor_test>
+template<typename iterator_test ,typename functor_test,typename T>
 typename functor_test::result_argument_type accumlate_test
-(iterator_test begin, iterator_test end, functor_test test)
+(iterator_test begin, iterator_test end, functor_test test,const T& init)
 {
-	bool flag=true;
+	bool flag = true;
 	typename functor_test::result_argument_type  sum = 0;
 	auto sum_c = sum;
-	for (auto i =begin; i!=end; i++ )
-	{	
+	for (auto i = begin; i != end; i++)
+	{
 		if (flag)
 		{
-			sum = test(1, (*i));
+			sum = test(init, (*i));
 			//需要在仿函数内定义相关名称来区分不同的仿函数应对同一个算法
 			//如accumlate_test 算法 在处理时仿函数的初值不同，如像 mult_test 初值
 			//test(1,(*i));, plus_test时候初值为 test(0,(*i))
@@ -44,12 +44,17 @@ typename functor_test::result_argument_type accumlate_test
 		}
 		else
 		{
-			sum = test(sum,(*i));
+			sum = test(sum, (*i));
 		}
 
 	}
 	return sum;
-}
+};
+
+
+
+
+
 
 
 #endif // !FUNCTION_FUNCTOR

@@ -20,7 +20,7 @@ int main()
 	cout << equal_to_test<int>()(a, b) << endl;
 	cout << no_equal_to_test<int>()(a, b) << endl;
 	cout << greater<int>()(a, b) << endl;
-	cout << less<int>()(a, b) << endl;
+	cout << "4<2=\t"<<less<int>()(a, b) << endl;
 	cout << greater_equal_test<int>()(a, b) << endl;
 	cout << less_equal_test<int>()(a, b) << endl;
 	cout << "\n";
@@ -29,6 +29,7 @@ int main()
 	cout << logical_not_test<int>()(true) << endl;
 	cout << "\n";
 	cout << bind1st_test<less_test<int>>(less_test<int>(),12)(15) << endl;
+	
 	cout << bind1st_test_function(less_test<int>(), 12)(15) << endl;
 
 
@@ -36,8 +37,18 @@ int main()
 	search_test(test.begin(), test.end(),
 		bind1st_test_function(less_test<int>(), 15));
 	vector<int> test1 = { 2,4,6,8 };
-	auto res = accumlate_test(test1.begin(), test1.end(), plus_test<int>());
+	auto res = accumlate_test(test1.begin(), test1.end(), plus_test<int>(),0);
+	auto res_1= accumlate_test(test1.begin(), test1.end(), multiplies_test<int>(),1);
 	cout << res << endl;
+	cout << res_1 << endl;
+
+	
+	cout << "\n";
+	cout<< neta_test<bind1st_test<less_test<int>>>
+		(bind1st_test<less_test<int>>(less_test<int>(), 12))(15)<<endl;
+	//传入一个对象
+	cout << not1_test_function(bind1st_test_function(less_test<int>(), 12))(15) << endl;
+
 
 	return 0;
 }
