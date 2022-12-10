@@ -16,9 +16,9 @@ void search_test(iterator_test begin, iterator_test end, functor_test test)
 	}
 }
 
-//ç”¨æ¨¡æ¿å‡½æ•°çš„çš„æ–¹å¼,ä¼ å…¥ä¸åŒçš„ä»¿å‡½æ•°ï¼ˆåƒæ˜¯å‡½æ•°æŒ‡é’ˆçš„å½¢å¼ï¼‰,
-//ä½†å…¶ä¹Ÿæ˜¯ä¾èµ–æ¨¡æ¿çš„ç›¸æ¯”ä¹‹ä¸‹æ›´æ–¹ä¾¿ï¼Œæ‹“å±•æ€§æ›´å¼º
-//å…¶å°±æ˜¯ä»¿å‡½æ•°é…åˆç®—æ³•å®ç°å¤šç§æ“ä½œ
+//ÓÃÄ£°åº¯ÊıµÄµÄ·½Ê½,´«Èë²»Í¬µÄ·Âº¯Êı£¨ÏñÊÇº¯ÊıÖ¸ÕëµÄĞÎÊ½£©,
+//µ«ÆäÒ²ÊÇÒÀÀµÄ£°åµÄÏà±ÈÖ®ÏÂ¸ü·½±ã£¬ÍØÕ¹ĞÔ¸üÇ¿
+//Æä¾ÍÊÇ·Âº¯ÊıÅäºÏËã·¨ÊµÏÖ¶àÖÖ²Ù×÷
 
 
 
@@ -35,10 +35,10 @@ typename functor_test::result_argument_type accumlate_test
 		if (flag)
 		{
 			sum = test(init, (*i));
-			//éœ€è¦åœ¨ä»¿å‡½æ•°å†…å®šä¹‰ç›¸å…³åç§°æ¥åŒºåˆ†ä¸åŒçš„ä»¿å‡½æ•°åº”å¯¹åŒä¸€ä¸ªç®—æ³•
-			//å¦‚accumlate_test ç®—æ³• åœ¨å¤„ç†æ—¶ä»¿å‡½æ•°çš„åˆå€¼ä¸åŒï¼Œå¦‚åƒ mult_test åˆå€¼
-			//test(1,(*i));, plus_testæ—¶å€™åˆå€¼ä¸º test(0,(*i))
-			//å¦ä¸€ä¸ªè§£å†³æ–¹æ³•:è¿™æ ·çš„æƒ…å†µå¯ä»¥é€šè¿‡å‡½æ•°æœ¬èº«ä¼ å…¥ä¸€ä¸ªå‚æ•°å¦‚ 1ï¼Œ0å¯¹åº”ç›¸åº”çš„ä»¿å‡½æ•°åˆå§‹å€¼
+			//ĞèÒªÔÚ·Âº¯ÊıÄÚ¶¨ÒåÏà¹ØÃû³ÆÀ´Çø·Ö²»Í¬µÄ·Âº¯ÊıÓ¦¶ÔÍ¬Ò»¸öËã·¨
+			//Èçaccumlate_test Ëã·¨ ÔÚ´¦ÀíÊ±·Âº¯ÊıµÄ³õÖµ²»Í¬£¬ÈçÏñ mult_test ³õÖµ
+			//test(1,(*i));, plus_testÊ±ºò³õÖµÎª test(0,(*i))
+			//ÁíÒ»¸ö½â¾ö·½·¨:ÕâÑùµÄÇé¿ö¿ÉÒÔÍ¨¹ıº¯Êı±¾Éí´«ÈëÒ»¸ö²ÎÊıÈç 1£¬0¶ÔÓ¦ÏàÓ¦µÄ·Âº¯Êı³õÊ¼Öµ
 
 			flag = false;
 		}
@@ -51,8 +51,46 @@ typename functor_test::result_argument_type accumlate_test
 	return sum;
 };
 
-//ä»¥ä¸Šæ˜¯æ™®é€šç±»å‹
-//å…¶ç®—æ³•éœ€è¦é‡è½½æ‹¥æœ‰åˆ¤å’Œç­›é€‰çš„èƒ½åŠ›çš„ç®—æ³•é€šè¿‡æ·»åŠ ä¸€ä¸ªä»¿å‡½æ•°ï¼Œæˆ–è€…å‡½æ•°æŒ‡é’ˆæ¥å®ç°
+
+
+template<typename iterator_test, typename functor_test, typename T,typename Preticate>
+typename functor_test::result_argument_type accumlate_test
+(iterator_test begin, iterator_test end, functor_test test, const T& init,const Preticate& pre_object)
+{
+	bool flag = true;
+	typename functor_test::result_argument_type  sum = 0;
+	auto sum_c = sum;
+	// Preticate pre_boject; //ÅĞ¶Ï¶ÔÏó
+	for (auto i = begin; i != end; i++)
+	{
+		if (pre_object(*i)) //ÔÚÔ­»ù´¡ÉÏÔö¼ÓÒ»¸ö·Âº¯Êı£¬º¯ÊıÖ¸ÕëµÄÉ¸Ñ¡
+		{
+			if (flag)
+			{
+				sum = test(init, (*i));
+				//ĞèÒªÔÚ·Âº¯ÊıÄÚ¶¨ÒåÏà¹ØÃû³ÆÀ´Çø·Ö²»Í¬µÄ·Âº¯ÊıÓ¦¶ÔÍ¬Ò»¸öËã·¨
+				//Èçaccumlate_test Ëã·¨ ÔÚ´¦ÀíÊ±·Âº¯ÊıµÄ³õÖµ²»Í¬£¬ÈçÏñ mult_test ³õÖµ
+				//test(1,(*i));, plus_testÊ±ºò³õÖµÎª test(0,(*i))
+				//ÁíÒ»¸ö½â¾ö·½·¨:ÕâÑùµÄÇé¿ö¿ÉÒÔÍ¨¹ıº¯Êı±¾Éí´«ÈëÒ»¸ö²ÎÊıÈç 1£¬0¶ÔÓ¦ÏàÓ¦µÄ·Âº¯Êı³õÊ¼Öµ
+
+				flag = false;
+			}
+			else
+			{
+				sum = test(sum, (*i));
+			}
+
+		}
+		else
+		{
+			continue;
+		}
+	}
+	return sum;
+
+	//¶ÔÓÚÒ»Ëã·¨µÄÖØÔØ¼ÓÉÏÒ»¸ö·Âº¯ÊıÅĞ¶ÏÉ¸Ñ¡;
+};
+
 
 
 

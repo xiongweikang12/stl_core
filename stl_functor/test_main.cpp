@@ -39,6 +39,7 @@ int main()
 	vector<int> test1 = { 2,4,6,8 };
 	auto res = accumlate_test(test1.begin(), test1.end(), plus_test<int>(),0);
 	auto res_1= accumlate_test(test1.begin(), test1.end(), multiplies_test<int>(),1);
+	
 	cout << res << endl;
 	cout << res_1 << endl;
 
@@ -48,7 +49,10 @@ int main()
 		(bind1st_test<less_test<int>>(less_test<int>(), 12))(15)<<endl;
 	//传入一个对象
 	cout << not1_test_function(bind1st_test_function(less_test<int>(), 12))(15) << endl;
-
+	auto res_2=accumlate_test(test1.begin(),test1.end(),multiplies_test<int>(),1,
+		bind1st_test_function(less_test<int>(), 5));
+	cout << res_2 << endl;
+	
 
 	return 0;
 }
