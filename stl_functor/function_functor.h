@@ -31,9 +31,10 @@ void search_test(iterator_test begin, iterator_test end,T find_data )
 			
 		}
 	}
-	if(flag==0){
-		cout<<"sorry don't search the data<<endl;
-		}
+	if(flag==0)
+	{
+	cout<<"sorry don't search the data<<endl;
+	}
 	
 	
 	//用模板函数的的方式,传入不同的仿函数（像是函数指针的形式）,
