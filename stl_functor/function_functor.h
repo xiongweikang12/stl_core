@@ -33,11 +33,11 @@ void search_test(iterator_test begin, iterator_test end,T find_data )
 	}
 	if(flag==0)
 	{
-	cout<<"sorry don't search the data<<endl;
+		cout<<"sorry don't search the data"<<endl;
 	}
 	
 	
-	//用模板函数的的方式,传入不同的仿函数（像是函数指针的形式）,
+	//用模板函数的的方式,传入不同的仿函数（像是函数指针的形式
 	//但其也是依赖模板的相比之下更方便，拓展性更强
 	//其就是仿函数配合算法实现多种操作
 }
