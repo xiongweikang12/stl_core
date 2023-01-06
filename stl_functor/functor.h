@@ -2,7 +2,9 @@
 #define FUNCTOR
 #include "functor_base.h"
 
-//���ַº����Ķ���
+//各种仿函数的定义
+//通过模板（继承基类（用于说明相关操作数，如一元操作数，二元操作数，结果的其类型））
+//类中有类对象的（）重载，创建一个临时对象temp --》 plus_test<int>()
 template <typename T>
 struct  plus_test:public binary_funtion_test<T,T,T>
 {
@@ -150,7 +152,7 @@ struct unary_negate_test
 public:
 	bool operator()(typename Predicate::result_argument_type& x)const
 	{
-		//�����ı�,��д...
+		//函数改变,改写...
 		return true;
 	}
 
