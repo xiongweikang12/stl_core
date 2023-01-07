@@ -45,6 +45,8 @@ inline bind1st_test<operation> bind1st_test_function(const operation& op, const 
 	typedef typename operation::first_argument_type arg1_type;
 	return bind1st_test<operation>(op, arg1_type(x));
 	//bind1st_test_function(less<int>(), 12)(15)
+	//bind1st_test_function(less<int>(),12) 是利用了模板函数自动识别的特性从而return 一个绑定对象类的对象，
+	//（）利用重构传入secoond_argument_type；
 };
 
 template<class Preticate>
@@ -60,11 +62,13 @@ public:
 	result_type_1 operator()(const typename Preticate::first_argument_type& y)
 	{ return !pre(y); }
 	//neta_test<bind1st_test<less<int>>(bind1st_test(less<int>,12))(15)
+	//意义为15>12的否定  bind1st_test(less<int>(),12) 为对象(15)
 	/*
 	
 	 neta_test<bind1st_test<less_test<int>>>
 		(bind1st_test<less_test<int>>(less_test<int>(), 12))
 	*/
+	//表示一元的否定
 };
 
 template<class Preticate>
@@ -79,7 +83,7 @@ inline neta_test<Preticate> not1_test_function(const Preticate& pre)
 
 	/*
 	not1_test_function(bind1st_test_function(less_test<int>(), 12))
-	
+	//以上为返回对象，然后通过调用重构() ！pre(y) -> !bind1st_test_function(less_test<int>(),12))(15) -> op(x,value) ->!less_test<int>(15,12)
 	*/
 }
 
