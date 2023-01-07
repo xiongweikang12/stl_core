@@ -3,7 +3,7 @@
 
 #include "functor.h"
 
-//½«¿ÉÅä½ÓµÄ¶şÔªº¯Êı×ª»»³ÉÒ»Ôªº¯Êı
+//å°†å¯é…æ¥çš„äºŒå…ƒå‡½æ•°è½¬æ¢æˆä¸€å…ƒå‡½æ•°
 
 
 template<class operation>
@@ -18,15 +18,15 @@ public:
 	bind1st_test(const operation& x, const typename operation::seconed_argument_type& y)
 		:op(x), value(y)
 	{
-		//±íÊ¾À¦°óÁËµÚÒ»²ÎÊı£¬µÚ¶ş²ÎÊıÖ¸¶¨;
-	}//¹¹Ôìº¯Êı
+		//è¡¨ç¤ºæ†ç»‘äº†ç¬¬ä¸€å‚æ•°ï¼Œç¬¬äºŒå‚æ•°æŒ‡å®š;
+	}//æ„é€ å‡½æ•°
 
 	bind1st_test(const bind1st_test& test)
 	{
 		this->op = test.op;
 		this->value = test.value;
 	}
-	//¶ÔÏó¹¹Ôìº¯Êı 
+	//å¯¹è±¡æ„é€ å‡½æ•°,æ‹·è´æ„é€ ã€‚
 
 
 	const typename operation::result_argument_type operator()(const typename operation::seconed_argument_type&  x)const
@@ -34,6 +34,8 @@ public:
 		return op(x,value);
 	}
 
+	//é€šè¿‡å°†å¦ä¸€ä¸ªä»¿å‡½æ•°ä½œä¸ºå…¶ç±»æˆå‘˜ï¼ŒåŒæ—¶æŒ‡å®šä»¿å‡½æ•°çš„frist_argument_type ï¼ˆï¼‰é‡æ„æ—¶ä¼ å…¥è‡ªèº«çš„secoond_argument_type è°ƒç”¨ä¹‹å‰çš„ä»¿å‡½æ•°ï¼ˆäºŒå…ƒï¼‰ 
+	// return op(x,value); valueä¸ºç»‘å®šå€¼
 	//bind1st_test<less<int>>(less<int>(),12)(15)
 };
 
@@ -71,8 +73,8 @@ inline neta_test<Preticate> not1_test_function(const Preticate& pre)
 	// const typename Preticate::result_argument_type 
 	typedef typename Preticate::first_argument_type  arg_type;
 	return neta_test<Preticate>(pre);
-	//·µ»ØÒ»¸ö¶ÔÏó
-	//Í¨¹ıÄ£°åº¯ÊıÊ¡È¥ÀàÄ£°å
+	//è¿”å›ä¸€ä¸ªå¯¹è±¡
+	//é€šè¿‡æ¨¡æ¿å‡½æ•°çœå»ç±»æ¨¡æ¿
 	//neta_test(bind1st(less<int>,12)(15)
 
 	/*
@@ -81,7 +83,7 @@ inline neta_test<Preticate> not1_test_function(const Preticate& pre)
 	*/
 }
 
-//Åä½ÓºóµÄÒÀÈ»ÊÇ·Âº¯Êı
+//é…æ¥åçš„ä¾ç„¶æ˜¯ä»¿å‡½æ•°
 
 
 #endif // !FUNCTOR_ADAPTERS
