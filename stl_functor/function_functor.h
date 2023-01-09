@@ -2,55 +2,66 @@
 #define	FUNCTION_FUNCTOR
 #include "functor_adapters.h"
 #include <iostream>
+#include <vector>
 using namespace std;
 
 template<typename iterator_test ,typename functor_test,typename T>
-void search_test(iterator_test begin, iterator_test end, functor_test test,T find_data )
+vector<T> search_test(iterator_test begin, iterator_test end, functor_test test,T find_data)
 {
+	
+	int flag = 0;
+	vector<T>  collation_contianer;
+	cout << "collection_vector_containter:";
+
 	for (auto i = begin; i != end; i++)
 	{
 		if (test(*i))
 		{
-			cout<<"search_alright" << *i<<endl;
+			cout << (*i) << "->";
+			collation_contianer.push_back(*i);
+			flag++;
 		}
 	}
+	if (flag == 0)
+	{
+		cout << "sorry don't search the data" << endl;
+	}
+	cout << ":search_alright" << endl;
+	return collation_contianer;
+
+	//find_test±íÊ¾ÒªfindµÄ¶ÔÏóµ«ÔÚÓÐ
+	//·Âº¯ÊýÉ¸Ñ¡µÄÇé¿öÏÂÊÇÃ»ÓÐ×÷ÓÃµÄ
+	//Ö÷ÒªÊÇÆäÓëbase_function
+	//º¯ÊýµÄÇø·ÖÆäº¯Êý´«²ÎÊý¿ÉÒÔÊÇÈÎºÎÖµ
 }
 
-
+//ÓÃÄ£°åº¯ÊýµÄµÄ·½Ê½,´«Èë²»Í¬µÄ·Âº¯Êý£¨ÏñÊÇº¯ÊýÖ¸ÕëµÄÐÎÊ½£©,
+//µ«ÆäÒ²ÊÇÒÀÀµÄ£°åµÄÏà±ÈÖ®ÏÂ¸ü·½±ã£¬ÍØÕ¹ÐÔ¸üÇ¿
+//Æä¾ÍÊÇ·Âº¯ÊýÅäºÏËã·¨ÊµÏÖ¶àÖÖ²Ù×÷
 
 template<typename iterator_test ,typename T>
-void search_test(iterator_test begin, iterator_test end,T find_data )
+vector<T> search_test(iterator_test begin, iterator_test end, T find_data)
 {
-	int flag=0;
+	int flag =0;
+	vector<T>  collation_contianer;
+	cout << "collection_vector_containter:";
 	for (auto i = begin; i != end; i++)
 	{
-		if ((*i)=find_data)
+		if ((*i) == find_data)
 		{
-			cout<<"search_alright" << *i<<endl;
-			break;
-			
+			cout <<(*i)<<"->";
+			collation_contianer.push_back(*i);
+			flag++;
 		}
 	}
-	if(flag==0)
+	if (flag == 0)
 	{
-		cout<<"sorry don't search the data"<<endl;
+		cout << "sorry don't search the data" << endl;
 	}
-	
-	
-	//ç”¨æ¨¡æ¿å‡½æ•°çš„çš„æ–¹å¼,ä¼ å…¥ä¸åŒçš„ä»¿å‡½æ•°ï¼ˆåƒæ˜¯å‡½æ•°æŒ‡é’ˆçš„å½¢å¼
-	//ä½†å…¶ä¹Ÿæ˜¯ä¾èµ–æ¨¡æ¿çš„ç›¸æ¯”ä¹‹ä¸‹æ›´æ–¹ä¾¿ï¼Œæ‹“å±•æ€§æ›´å¼º
-	//å…¶å°±æ˜¯ä»¿å‡½æ•°é…åˆç®—æ³•å®žçŽ°å¤šç§æ“ä½œ
+	cout << ":search_alright" << endl;
+	return collation_contianer;
 }
-
-
-
-
-
-
-
-
-
-
+	 
 
 
 
@@ -67,10 +78,10 @@ typename functor_test::result_argument_type accumlate_test
 		if (flag)
 		{
 			sum = test(init, (*i));
-			//éœ€è¦åœ¨ä»¿å‡½æ•°å†…å®šä¹‰ç›¸å…³åç§°æ¥åŒºåˆ†ä¸åŒçš„ä»¿å‡½æ•°åº”å¯¹åŒä¸€ä¸ªç®—æ³•
-			//å¦‚accumlate_test ç®—æ³• åœ¨å¤„ç†æ—¶ä»¿å‡½æ•°çš„åˆå€¼ä¸åŒï¼Œå¦‚åƒ mult_test åˆå€¼
-			//test(1,(*i));, plus_testæ—¶å€™åˆå€¼ä¸º test(0,(*i))
-			//å¦ä¸€ä¸ªè§£å†³æ–¹æ³•:è¿™æ ·çš„æƒ…å†µå¯ä»¥é€šè¿‡å‡½æ•°æœ¬èº«ä¼ å…¥ä¸€ä¸ªå‚æ•°å¦‚ 1ï¼Œ0å¯¹åº”ç›¸åº”çš„ä»¿å‡½æ•°åˆå§‹å€¼
+			//ÐèÒªÔÚ·Âº¯ÊýÄÚ¶¨ÒåÏà¹ØÃû³ÆÀ´Çø·Ö²»Í¬µÄ·Âº¯ÊýÓ¦¶ÔÍ¬Ò»¸öËã·¨
+			//Èçaccumlate_test Ëã·¨ ÔÚ´¦ÀíÊ±·Âº¯ÊýµÄ³õÖµ²»Í¬£¬ÈçÏñ mult_test ³õÖµ
+			//test(1,(*i));, plus_testÊ±ºò³õÖµÎª test(0,(*i))
+			//ÁíÒ»¸ö½â¾ö·½·¨:ÕâÑùµÄÇé¿ö¿ÉÒÔÍ¨¹ýº¯Êý±¾Éí´«ÈëÒ»¸ö²ÎÊýÈç 1£¬0¶ÔÓ¦ÏàÓ¦µÄ·Âº¯Êý³õÊ¼Öµ
 
 			flag = false;
 		}
@@ -92,18 +103,18 @@ typename functor_test::result_argument_type accumlate_test
 	bool flag = true;
 	typename functor_test::result_argument_type  sum = 0;
 	auto sum_c = sum;
-	// Preticate pre_boject; //åˆ¤æ–­å¯¹è±¡
+	// Preticate pre_boject; //ÅÐ¶Ï¶ÔÏó
 	for (auto i = begin; i != end; i++)
 	{
-		if (pre_object(*i)) //åœ¨åŽŸåŸºç¡€ä¸Šå¢žåŠ ä¸€ä¸ªä»¿å‡½æ•°ï¼Œå‡½æ•°æŒ‡é’ˆçš„ç­›é€‰
+		if (pre_object(*i)) //ÔÚÔ­»ù´¡ÉÏÔö¼ÓÒ»¸ö·Âº¯Êý£¬º¯ÊýÖ¸ÕëµÄÉ¸Ñ¡
 		{
 			if (flag)
 			{
 				sum = test(init, (*i));
-				//éœ€è¦åœ¨ä»¿å‡½æ•°å†…å®šä¹‰ç›¸å…³åç§°æ¥åŒºåˆ†ä¸åŒçš„ä»¿å‡½æ•°åº”å¯¹åŒä¸€ä¸ªç®—æ³•
-				//å¦‚accumlate_test ç®—æ³• åœ¨å¤„ç†æ—¶ä»¿å‡½æ•°çš„åˆå€¼ä¸åŒï¼Œå¦‚åƒ mult_test åˆå€¼
-				//test(1,(*i));, plus_testæ—¶å€™åˆå€¼ä¸º test(0,(*i))
-				//å¦ä¸€ä¸ªè§£å†³æ–¹æ³•:è¿™æ ·çš„æƒ…å†µå¯ä»¥é€šè¿‡å‡½æ•°æœ¬èº«ä¼ å…¥ä¸€ä¸ªå‚æ•°å¦‚ 1ï¼Œ0å¯¹åº”ç›¸åº”çš„ä»¿å‡½æ•°åˆå§‹å€¼
+				//ÐèÒªÔÚ·Âº¯ÊýÄÚ¶¨ÒåÏà¹ØÃû³ÆÀ´Çø·Ö²»Í¬µÄ·Âº¯ÊýÓ¦¶ÔÍ¬Ò»¸öËã·¨
+				//Èçaccumlate_test Ëã·¨ ÔÚ´¦ÀíÊ±·Âº¯ÊýµÄ³õÖµ²»Í¬£¬ÈçÏñ mult_test ³õÖµ
+				//test(1,(*i));, plus_testÊ±ºò³õÖµÎª test(0,(*i))
+				//ÁíÒ»¸ö½â¾ö·½·¨:ÕâÑùµÄÇé¿ö¿ÉÒÔÍ¨¹ýº¯Êý±¾Éí´«ÈëÒ»¸ö²ÎÊýÈç 1£¬0¶ÔÓ¦ÏàÓ¦µÄ·Âº¯Êý³õÊ¼Öµ
 
 				flag = false;
 			}
@@ -120,7 +131,7 @@ typename functor_test::result_argument_type accumlate_test
 	}
 	return sum;
 
-	//å¯¹äºŽä¸€ç®—æ³•çš„é‡è½½åŠ ä¸Šä¸€ä¸ªä»¿å‡½æ•°åˆ¤æ–­ç­›é€‰;
+	//¶ÔÓÚÒ»Ëã·¨µÄÖØÔØ¼ÓÉÏÒ»¸ö·Âº¯ÊýÅÐ¶ÏÉ¸Ñ¡;
 };
 
 
