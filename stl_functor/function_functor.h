@@ -9,6 +9,14 @@ template<typename iterator_test ,typename functor_test,typename T>
 vector<T> search_test(iterator_test begin, iterator_test end, functor_test test,T find_data)
 {
 	
+	/*
+	begin:iterator 
+	end:iterator
+	test:相关仿函数,为一元仿函数
+	find_data:寻找的数
+	//本函数是依据仿函数寻找
+	
+	*/
 	int flag = 0;
 	vector<T>  collation_contianer;
 	cout << "collection_vector_containter:";
@@ -42,6 +50,14 @@ vector<T> search_test(iterator_test begin, iterator_test end, functor_test test,
 template<typename iterator_test ,typename T>
 vector<T> search_test(iterator_test begin, iterator_test end, T find_data)
 {
+
+	/*
+	begin:iterator
+	end:iterator
+	find_data:寻找的数
+	//本函数是寻找的数寻找
+
+	*/
 	int flag =0;
 	vector<T>  collation_contianer;
 	cout << "collection_vector_containter:";
@@ -69,7 +85,23 @@ vector<T> search_test(iterator_test begin, iterator_test end, T find_data)
 template<typename iterator_test ,typename functor_test,typename T>
 typename functor_test::result_argument_type accumlate_test
 (iterator_test begin, iterator_test end, functor_test test,const T& init)
-{
+{	
+	
+	/*
+	begin:iterator
+	end:iterator
+	test:相关仿函数,二元仿函数，plus mult....
+	init:初始值 ，像加的初始值可以为0，但是乘法不能为0
+	//本函数是为将begin到end积累起来，用*iterator来表示数，同时其也能重构
+	//*iterator也可以表示其他，但是其要有test对应的符号重构
+
+	T operator()( const T& x1, const  T& x2 )
+	{
+		return x1 + x2; //像这样对+有重构
+	}
+
+	*/
+
 	bool flag = true;
 	typename functor_test::result_argument_type  sum = 0;
 	auto sum_c = sum;
@@ -100,6 +132,22 @@ template<typename iterator_test, typename functor_test, typename T,typename Pret
 typename functor_test::result_argument_type accumlate_test
 (iterator_test begin, iterator_test end, functor_test test, const T& init,const Preticate& pre_object)
 {
+
+	/*
+	begin:iterator
+	end:iterator
+	test:相关仿函数,二元仿函数，plus mult....
+	init:初始值 ，像加的初始值可以为0，但是乘法不能为0
+	pre_object :相关仿函数，一元仿函数 用于筛选
+	//本函数是为将begin到end积累起来，用*iterator来表示数，同时其也能重构
+	//*iterator也可以表示其他，但是其要有test对应的符号重构
+
+	T operator()( const T& x1, const  T& x2 )
+	{
+		return x1 + x2; //像这样对+有重构
+	}
+
+	*/
 	bool flag = true;
 	typename functor_test::result_argument_type  sum = 0;
 	auto sum_c = sum;
