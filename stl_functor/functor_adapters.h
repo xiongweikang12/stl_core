@@ -3,7 +3,7 @@
 
 #include "functor.h"
 
-//½«¿ÉÅä½ÓµÄ¶şÔªº¯Êı×ª»»³ÉÒ»Ôªº¯Êı
+//å°†å¯é…æ¥çš„äºŒå…ƒå‡½æ•°è½¬æ¢æˆä¸€å…ƒå‡½æ•°
 
 
 template<class operation>
@@ -18,15 +18,15 @@ public:
 	bind1st_test(const operation& x, const typename operation::seconed_argument_type& y)
 		:op(x), value(y)
 	{
-		//±íÊ¾À¦°óÁËµÚÒ»²ÎÊı£¬µÚ¶ş²ÎÊıÖ¸¶¨;
-	}//¹¹Ôìº¯Êı
+		//è¡¨ç¤ºæ†ç»‘äº†ç¬¬ä¸€å‚æ•°ï¼Œç¬¬äºŒå‚æ•°æŒ‡å®š;
+	}//æ„é€ å‡½æ•°
 
 	bind1st_test(const bind1st_test& test)
 	{
 		this->op = test.op;
 		this->value = test.value;
 	}
-	//¶ÔÏó¹¹Ôìº¯Êı 
+	//å¯¹è±¡æ„é€ å‡½æ•° 
 
 
 	const typename operation::result_argument_type operator()(const typename operation::seconed_argument_type& x)
@@ -41,12 +41,12 @@ template<class operation ,class T>
 inline bind1st_test<operation> bind1st_test_function(const operation& op, const T& x)
 {
 	typedef typename operation::first_argument_type first_argument_type;
-	//ÏñÕâÑùÀàËÆÖØÃüÃûÊÇÎªÁË·ÀÖ¹Åä½Ó¹ı·Âº¯Êı×÷Îªoperation£¬ÕâÑùÍ¬Ãû¿ÉÒÔ
-	//½«ÀàĞÍÃû³Æ´«µİ±ÈÈç not1_test_function(bind1st_test_function(less<int>(),12))(15)
-	//neta_testÖĞ£ºresult_argument_type -> bind1st_test<less<int>>::result_argument_type
-	//bind1st_test<less<int>>ÖĞ result_argument_type ->less<int>::result_argument_type 
-	//less<int> result_argument_type -> bool 
-	//Í¨¹ıÕâÖÖĞÎÊ½´«µİ
+	//åƒè¿™æ ·ç±»ä¼¼é‡å‘½åæ˜¯ä¸ºäº†é˜²æ­¢é…æ¥è¿‡ä»¿å‡½æ•°ä½œä¸ºoperationï¼Œè¿™æ ·åŒåå¯ä»¥
+	//å°†ç±»å‹åç§°ä¼ é€’æ¯”å¦‚ not1_test_function(bind1st_test_function(less<int>(),12))(15)
+	//neta_testä¸­ï¼šresult_argument_type -> bind1st_test<less<int>>::result_argument_type
+	//bind1st_test<less<int>>ä¸­ result_argument_type ->less<int>::result_argument_type 
+	//less<int> result_argument_type -> binary_funtion_test<int,int,bool> ->bool
+	//é€šè¿‡è¿™ç§å½¢å¼ä¼ é€’
 	return bind1st_test<operation>(op, first_argument_type(x));
 	//bind1st_test_function(less<int>(), 12)(15)
 };
@@ -77,8 +77,8 @@ inline neta_test<Preticate> not1_test_function(const Preticate& pre)
 	// const typename Preticate::result_argument_type 
 	typedef typename Preticate::first_argument_type  arg_type;
 	return neta_test<Preticate>(pre);
-	//·µ»ØÒ»¸ö¶ÔÏó
-	//Í¨¹ıÄ£°åº¯ÊıÊ¡È¥ÀàÄ£°å
+	//è¿”å›ä¸€ä¸ªå¯¹è±¡
+	//é€šè¿‡æ¨¡æ¿å‡½æ•°çœå»ç±»æ¨¡æ¿
 	//neta_test(bind1st(less<int>,12)(15)
 
 	/*
@@ -87,10 +87,10 @@ inline neta_test<Preticate> not1_test_function(const Preticate& pre)
 	*/
 }
 
-//Åä½ÓºóµÄÒÀÈ»ÊÇ·Âº¯Êı
+//é…æ¥åçš„ä¾ç„¶æ˜¯ä»¿å‡½æ•°
 
 
-//×éºÏ£¨Ç¶Ì×)¹ØÏµµÄ·Âº¯ÊıÅä½Ó¶àÎªÁ½¸ö
+//ç»„åˆï¼ˆåµŒå¥—)å…³ç³»çš„ä»¿å‡½æ•°é…æ¥å¤šä¸ºä¸¤ä¸ª
 //(v+3)*5
 template <class  functor_1,class functor_2>
 class compose_test
