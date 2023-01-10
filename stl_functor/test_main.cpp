@@ -33,10 +33,13 @@ int main()
 	cout << bind1st_test_function(less_test<int>(), 12)(15) << endl;
 
 
-	cout<<"new:" << compose_test_function(bind1st_test_function(multiplies_test<int>(), 3),
-		bind1st_test_function(plus_test<int>(), 2))(3);
+	cout << "new:" << compose_test_function(bind1st_test_function(multiplies_test<int>(), 3),
+		bind1st_test_function(plus_test<int>(), 2))(3) << endl;
 
-
+	cout << "new2:" << "((v + 2) * 3) * 3, v = 3," << 
+		compose_test_function(bind1st_test_function(multiplies_test<int>(), 3),
+		compose_test_function(bind1st_test_function(multiplies_test<int>(), 3),
+			bind1st_test_function(plus_test<int>(), 2)))(3) << endl;
 
 
 	vector<int> test = { 10,13,16,17,18,1,14 };

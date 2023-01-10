@@ -40,8 +40,14 @@ public:
 template<class operation ,class T>
 inline bind1st_test<operation> bind1st_test_function(const operation& op, const T& x)
 {
-	typedef typename operation::first_argument_type arg1_type;
-	return bind1st_test<operation>(op, arg1_type(x));
+	typedef typename operation::first_argument_type first_argument_type;
+	//像这样类似重命名是为了防止配接过仿函数作为operation，这样同名可以
+	//将类型名称传递比如 not1_test_function(bind1st_test_function(less<int>(),12))(15)
+	//neta_test中：result_argument_type -> bind1st_test<less<int>>::result_argument_type
+	//bind1st_test<less<int>>中 result_argument_type ->less<int>::result_argument_type 
+	//less<int> result_argument_type -> bool 
+	//通过这种形式传递
+	return bind1st_test<operation>(op, first_argument_type(x));
 	//bind1st_test_function(less<int>(), 12)(15)
 };
 
@@ -50,12 +56,12 @@ class neta_test
 {
 protected:
 	Preticate pre;
-	typedef typename Preticate::result_argument_type   result_type_1;
+	typedef typename Preticate::result_argument_type   result_argument_type;
 	// typename Preticate::first_argument_type value;
 public:
 	neta_test(const Preticate&x) 
 		:pre(x){}
-	result_type_1 operator()(const typename Preticate::first_argument_type& y)
+	result_argument_type operator()(const typename Preticate::first_argument_type& y)
 	{ return !pre(y); }
 	//neta_test<bind1st_test<less<int>>(bind1st_test(less<int>,12))(15)
 	/*
@@ -92,16 +98,17 @@ class compose_test
 protected:
 	functor_1 functor_compose_1;
 	functor_2 functor_compose_2;
-	typedef typename functor_1::first_argument_type value_1;
-	typedef typename  functor_1::first_argument_type value_2;
+	typedef typename functor_1::first_argument_type first_argument_type;
+	// typedef typename  functor_1::first_argument_type value_2;
 public:
-	typedef typename functor_1::result_argument_type  result_argument_type1;
-	typedef typename functor_2::result_argument_type  result_argument_type2;
-	compose_test(const functor_1& functor1,const functor_2& functor2)
-		:functor_compose_1(functor1),functor_compose_2(functor2)
-	{}
+	typedef typename functor_1::result_argument_type  result_argument_type;
+	// typedef typename functor_2::result_argument_type  result_argument_type2;
+	compose_test(const functor_1& functor1, const functor_2& functor2)
+		:functor_compose_1(functor1), functor_compose_2(functor2)
+	{};
 	
-	typename result_argument_type1 operator()(const typename functor_2::first_argument_type& v)
+	typename functor_1::result_argument_type
+	operator()(const typename functor_1::first_argument_type& v)
 	{
 		return functor_compose_1(functor_compose_2(v));
 	}
