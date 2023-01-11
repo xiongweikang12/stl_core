@@ -16,20 +16,21 @@ public:
 
 protected:
 	TT c;
-	//��Ϊ�ײ�����ʹ�ã�Ĭ�� deque 
-	// stack<int,8,list<int>> ��ʱlist<int> ��Ϊ��ײ�������
-	//������������
-	//�������ڵײ������Ļ�����ʹ���亯��������Լ��Ĺ���;
-	//�������Ϊ����ģʽ
-	//ͬʱ����û�е�������
+	//作为底层容器使用，默认 deque 
+	// stack<int,8,list<int>> 这时list<int> 成为其底层容器，
+	//这样适配起来
+	//对于其在底层容器的基础上使用其函数，完成自己的功能;
+	//因此设置为保护模式
+	//同时其是没有迭代器的
+	//这样也称之为容器适配器
 
 public:
-	void push(const value_type& x)//���
+	void push(const value_type& x)//入队
 	{
 		c.push_back(x);
 	}
 
-	void pop()//����
+	void pop()//出队
 	{
 		c.pop_back();
 	}
