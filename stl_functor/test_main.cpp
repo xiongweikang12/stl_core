@@ -6,6 +6,14 @@
 
 using namespace std;
 
+void show(vector<int> a)
+{
+	for (auto i = a.begin(); i != a.end(); i++)
+	{
+		cout << *i<<"->";
+	}
+}
+
 int main()
 {
 	int a = 4;
@@ -76,7 +84,11 @@ int main()
 		bind1st_test_function(ii, 5));
 	cout << res_2 << endl;
 	
-	//当
+	//
+	auto f = for_each_test(test1.begin(), test1.end(), compose_test_function(bind1st_test_function(multiplies_test<int>(), 3),
+		bind1st_test_function(plus_test<int>(), 2)));
+	//对每个元素操作
+	show(test1);
 
 	return 0;
 }

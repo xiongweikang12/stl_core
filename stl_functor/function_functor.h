@@ -130,7 +130,7 @@ typename functor_test::result_argument_type accumlate_test
 
 template<typename iterator_test, typename functor_test, typename T,typename Preticate>
 typename functor_test::result_argument_type accumlate_test
-(iterator_test begin, iterator_test end, functor_test test, const T& init,const Preticate& pre_object)
+(iterator_test begin, iterator_test end, functor_test test, const T& init, Preticate pre_object)
 {
 
 	/*
@@ -182,7 +182,15 @@ typename functor_test::result_argument_type accumlate_test
 	//对于一算法的重载加上一个仿函数判断筛选;
 };
 
-
+template<typename iterator_test ,typename functor_test>
+functor_test for_each_test(iterator_test begin, iterator_test end, functor_test f)
+{
+	for (;begin!= end; begin++)
+	{
+		*begin=f(*begin);
+	}
+	return f;
+}
 
 
 
